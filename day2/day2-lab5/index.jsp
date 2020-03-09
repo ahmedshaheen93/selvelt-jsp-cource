@@ -13,7 +13,9 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-    	<!-- <div style="color: #FF0000;">${messages}</div> -->
+        <% if(request.getAttribute("messages")!=null){%>
+             <div style="color: #FF0000;">error </div>
+        <%}%>
         <p class="login-box-msg">
             <b>
                 please login in

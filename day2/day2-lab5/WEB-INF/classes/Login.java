@@ -16,8 +16,8 @@ public class Login extends HttpServlet{
                 request.setAttribute("messages", "error username and password");
             }
         }
-         RequestDispatcher rd = request.getRequestDispatcher("index.html");
-        rd.sendRedirect(request, response);
+         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        rd.include(request, response);
        
     }
     @Override
