@@ -1,0 +1,31 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	<servlet>
+		<servlet-name>ServelteConfig</servlet-name>
+		<servlet-class>com.shaheen.serveltDemo.ServelteConfigDemo</servlet-class>
+		<init-param>
+			<param-name>DB-URL</param-name>
+			<param-value>localHost</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DB-NAME</param-name>
+			<param-value>chatDB</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DB-USER</param-name>
+			<param-value>root</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DB-PASSWORD</param-name>
+			<param-value>root</param-value>
+		</init-param>
+
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServelteConfig</servlet-name>
+		<url-pattern>/readConfig</url-pattern>
+	</servlet-mapping>
+</web-app>

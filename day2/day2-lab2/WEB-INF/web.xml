@@ -1,0 +1,26 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	<servlet>
+		<servlet-name>ServeletContext</servlet-name>
+		<servlet-class>com.shaheen.serveltDemo.ServeletContextDemo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServeletContext</servlet-name>
+		<url-pattern>/readContext</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ServeletContextSet</servlet-name>
+		<servlet-class>com.shaheen.serveltDemo.ServeletContextSet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ServeletContextSet</servlet-name>
+		<url-pattern>/setData</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<param-name>auther</param-name>
+		<param-value>ahmed shaheen</param-value>
+	</context-param>
+</web-app>
