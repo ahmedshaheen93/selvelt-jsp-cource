@@ -25,7 +25,6 @@ public class ServelteConfigDemo implements Servlet{
 		out.println ("database password : " +dbPassword);
 	}
 	public void destroy(){
-		System.out.println("I am inside the destroy method");
 	}
 	public String getServletInfo(){
 		return null;
