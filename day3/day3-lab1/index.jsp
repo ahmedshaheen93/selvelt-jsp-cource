@@ -13,9 +13,14 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <% if(request.getAttribute("messages")!=null){%>
-             <div style="color: #FF0000;">request.getAttribute("messages")</div>
-        <%}%>
+        <%
+        String messages = (String)request.getAttribute("messages");
+         if (messages != null && !messages.equals("")) { 
+        %>
+    		<p style="color: red;"><%= messages %></p>
+        <%
+          }
+        %>
         <p class="login-box-msg">
             <b>
                 please login in

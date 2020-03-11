@@ -10,7 +10,13 @@ public class Home extends HttpServlet{
 	 public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
     {
-       RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-        rd.include(request, response);
+    	if(request.getSession() !=null){
+    		RequestDispatcher rd = request.getRequestDispatcher("/login");
+       		rd.include(request, response);
+    	}else{
+    		RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+       		rd.include(request, response);
+    	}
+     
     }
 }

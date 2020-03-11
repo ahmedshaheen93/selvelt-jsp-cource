@@ -11,6 +11,8 @@ import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
     private final String SELECT_ALL = "SELECT * FROM USER";
+    private final String SEARCH_BY_NAME = "SELECT * FROM USER "
+    +"WHERE FIRST_NAME LIKE '%' ? '%' OR LAST_NAME LIKE '%' ? '%' ";
     private final String SELECT_BY_ID = "SELECT * FROM USER WHERE ID = ?";
     private final String SELECT_BY_PHONE_PASSWORD = "SELECT * FROM USER WHERE PHONE = ? " +
             "AND PASSWORD = ?";
@@ -37,6 +39,47 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> users = new ArrayList<>();
         try {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = ModelAdapter.mapResultSetToUser(resultSet);
+                user.setPassword("");
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSetAndPreparedStatement(resultSet, preparedStatement);
+        }
+        return users;
+    }
+    @Override
+    public List<User> excuteQuery(String query) throws SQLException{
+        List<User> users = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = ModelAdapter.mapResultSetToUser(resultSet);
+                user.setPassword("");
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResultSetAndPreparedStatement(resultSet, preparedStatement);
+        }
+        
+    }
+
+    @Override
+    public List<User> search(String name) {
+        List<User> users = new ArrayList<>();
+        try {
+            preparedStatement = connection.prepareStatement(SEARCH_BY_NAME);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, name);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = ModelAdapter.mapResultSetToUser(resultSet);
@@ -177,6 +220,24 @@ public class UserRepositoryImpl implements UserRepository {
         }
         return 0;
     }
+      @Override
+    public int excuteUpdate(String query) throws SQLException {
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+           throw e;
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+       
+    }
+
 
     private void closeResultSetAndPreparedStatement(ResultSet resultSet, PreparedStatement preparedStatement) {
         try {

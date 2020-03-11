@@ -13,6 +13,22 @@ public interface ServerUserService  {
      * @return list<User>
      */
     public List<User> findAll();
+    
+    /**
+     * get all users form database
+     *
+     * @return list<User>
+     */
+    public List<User> excuteQuery(String query) throws Exception;
+    
+    public int excuteUpdate(String query) throws Exception;
+
+    /**
+     * get all users form database
+     *
+     * @return list<User>
+     */
+    public List<User> search(String name);
 
     /**
      * get user form database using his id

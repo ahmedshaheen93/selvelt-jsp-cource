@@ -13,14 +13,32 @@ public class Login extends HttpServlet{
 	 public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws IOException, ServletException
     {
-         String error= request.getParameter("error");
-        if(error!=null ){
-             if( error.equals("true")){
-                request.setAttribute("messages", "error username and password");
+    
+        String cheackCookie= request.getParameter("cookie");
+        // geting from old request 
+        if(cheackCookie!=null ){
+            boolean enableCookie = false ;
+             if( cheackCookie.equals("true")){
+				Cookie[] cookies = request.getCookies();
+                if(cookies != null)
+                {
+                  for (int i=0; i<cookies.length; i++){
+                       Cookie cookie = cookies[i];
+                        if(cookie.getName().equals("checkCookie")){
+                            enableCookie =true;
+                        }
+                    }
+                }
+                if(!enableCookie){
+                    request.setAttribute("messages", "please enable cookie to go on");
+                }
+
             }
-        }
-         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         rd.include(request, response);
+        }else{
+            response.sendRedirect(request.getContextPath() + "/checkCookie");
+        }
        
     }
     @Override
@@ -29,16 +47,21 @@ public class Login extends HttpServlet{
     {
     	String username =request.getParameter("username");
     	String password =request.getParameter("password");
-       ServletContext context =  request.getServletContext();
-		ServerUserService userService 
-        =(ServerUserService)context.getAttribute("userService");
+        ServletContext context =  request.getServletContext();
+		ServerUserService userService  =(ServerUserService)context.getAttribute("userService");
     	System.out.println(userService);
-       User user = userService.findByPhoneAndPassword(username ,password );
+          User user = userService.findByPhoneAndPassword(username ,password );
     	if(user !=null && user.getId()>0){
-    		 response.sendRedirect(request.getContextPath() + "/home");
+             Cookie c1 = new Cookie("usernameAndPassword", "{ username:"+username+",password:"+password+"}");
+             response.addCookie(c1);
+            RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
+            rd.include(request, response);
+
     	}
         else{
-            response.sendRedirect(request.getContextPath() + "/login?error=true");
+            request.setAttribute("messages", "error username and password");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.include(request, response);
         }		
 		
     }

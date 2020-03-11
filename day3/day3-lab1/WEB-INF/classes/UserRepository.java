@@ -3,6 +3,8 @@ package com.shaheen.repository;
 import com.shaheen.model.*;
 
 import java.util.List;
+import java.sql.*;
+
 
 public interface UserRepository {
 
@@ -13,6 +15,22 @@ public interface UserRepository {
      * @return list<User>
      */
     public List<User> findAll();
+
+    /**
+     * get all users form database
+     *
+     * @return list<User>
+     */
+    public List<User> search(String name);
+    
+/**
+     * get all users form database
+     *
+     * @return list<User>
+     */
+    public List<User> excuteQuery(String query) throws SQLException;
+    
+    public int excuteUpdate(String query) throws SQLException;
 
     /**
      * get user form database using his id

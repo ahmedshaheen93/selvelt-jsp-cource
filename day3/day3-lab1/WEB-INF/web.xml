@@ -29,11 +29,29 @@
 	</servlet-mapping>
 		<servlet>
 		<servlet-name>search</servlet-name>
-		<servlet-class>com.shaheen.serveltDemo.UserSearch</servlet-class>
+		<servlet-class>com.shaheen.serveltDemo.Search</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>search</servlet-name>
 		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SqlTool</servlet-name>
+		<servlet-class>com.shaheen.serveltDemo.SqlTool
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SqlTool</servlet-name>
+		<url-pattern>/sqlTool</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>checkCookie</servlet-name>
+		<servlet-class>com.shaheen.serveltDemo.CheckCookie
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckCookie</servlet-name>
+		<url-pattern>/checkCookie</url-pattern>
 	</servlet-mapping>
 	<listener>
 		<listener-class>

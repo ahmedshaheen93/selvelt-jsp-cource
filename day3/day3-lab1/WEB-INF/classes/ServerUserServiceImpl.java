@@ -21,7 +21,18 @@ public class ServerUserServiceImpl implements ServerUserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+    public List<User> excuteQuery(String query) throws Exception{
+        return userRepository.excuteQuery(query);
+    }
+    
+    public int excuteUpdate(String query) throws Exception{
+        return userRepository.excuteUpdate(query);
+    }
+    @Override
 
+    public List<User> search(String name) {
+        return userRepository.search(name);
+    }
     @Override
     public User findById(int id, boolean fullData) {
         return userRepository.findById(id,fullData);
